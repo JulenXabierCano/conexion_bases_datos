@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
-
 import javax.swing.JOptionPane;
 
 public class Ejecutable {
@@ -28,17 +27,20 @@ public class Ejecutable {
 			switch (opcion_menu) {
 			case INSERTAR_DATOS:
 				st.execute("INSERT INTO arboles (nombre_comun,nombre_cientifico,habitat,altura,origen) VALUES ('"
-						+ JOptionPane.showInputDialog(null, "Introduzca nombre comun del arbol") + ","
-						+ JOptionPane.showInputDialog(null, "Introduzca nombre científico del arbol") + ","
-						+ JOptionPane.showInputDialog(null, "Introduzca habitat del arbol") + ","
-						+ JOptionPane.showInputDialog(null, "Introduzca altura del arbol") + ","
+						+ JOptionPane.showInputDialog(null, "Introduzca nombre comun del arbol") + "','"
+						+ JOptionPane.showInputDialog(null, "Introduzca nombre científico del arbol") + "','"
+						+ JOptionPane.showInputDialog(null, "Introduzca habitat del arbol") + "','"
+						+ JOptionPane.showInputDialog(null, "Introduzca altura del arbol") + "','"
 						+ JOptionPane.showInputDialog(null, "Introduzca origen del arbol") + "')");
 				break;
 			case ELIMINAR_DATOS:
+				
 				break;
 			case MODIFICAR_INFORMACION:
+				
 				break;
 			case VISUALIZAR:
+				
 				break;
 			case SALIR:
 				JOptionPane.showMessageDialog(null, "Adios");

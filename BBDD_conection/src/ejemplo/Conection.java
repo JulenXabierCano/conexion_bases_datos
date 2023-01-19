@@ -18,6 +18,7 @@ public class Conection {
 		st.execute("INSERT INTO animales (nombre) VALUES ('"+nuevoAnimal+"')");
 		//INSERT INTO animales (ID, nombre) VALUES ('gato');
 		
+		
 		con.close();
 	}
 }
