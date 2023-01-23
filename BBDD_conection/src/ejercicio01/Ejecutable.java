@@ -16,7 +16,7 @@ public class Ejecutable {
 
 		final int INSERTAR_DATOS = 1;
 		final int ELIMINAR_DATOS = 2;
-		final int MODIFICAR_INFORMACION = 7;
+		final int MODIFICAR_INFORMACION = 3;
 		final int VISUALIZAR = 4;
 		final int SALIR = 0;
 		int opcion_menu;
@@ -47,35 +47,38 @@ public class Ejecutable {
 				do {
 
 					id_arbol = Integer.parseInt(JOptionPane.showInputDialog(null, "Introduzca ID a modificar"));
+					if (id_arbol==0) break;
 
 					opcion = JOptionPane.showInputDialog(null,
 							"Introduzca dato a modificar\n" + "1 - Nombre comun\n" + "2 - Nombre cientifico\n"
-									+ "3 - Habitat\n" + "4 - Altura\n" + "5 - Origen\n" + " 0 - salir\n");
+									+ "3 - Habitat\n" + "4 - Altura\n" + "5 - Origen\n" + "0 - salir\n");
 					switch (opcion) {
 					case "1":// cambiar nombre comun
-						st.executeUpdate("UPDATE arbol SET nombre_comun='"
+						st.executeUpdate("UPDATE arboles SET nombre_comun='"
 								+ JOptionPane.showInputDialog(null, "Introduzca nuevo nombre comun para el árbol")
 								+ "' WHERE id = '" + id_arbol + "'");
 						break;
 					case "2":// cambiar nombre cientifico
-						st.executeUpdate("UPDATE arbol SET nombre_comun='"
+						st.executeUpdate("UPDATE arboles SET nombre_comun='"
 								+ JOptionPane.showInputDialog(null, "Introduzca nuevo nombre cientifico para el árbol")
 								+ "' WHERE id = '" + id_arbol + "'");
 						break;
 					case "3":// cambiar habitat
-						st.executeUpdate("UPDATE arbol SET nombre_comun='"
+						st.executeUpdate("UPDATE arboles SET nombre_comun='"
 								+ JOptionPane.showInputDialog(null, "Introduzca nuevo habitat para el árbol")
 								+ "' WHERE id = '" + id_arbol + "'");
 						break;
 					case "4":// cambiar altura
-						st.executeUpdate("UPDATE arbol SET nombre_comun='"
+						st.executeUpdate("UPDATE arboles SET nombre_comun='"
 								+ JOptionPane.showInputDialog(null, "Introduzca nuevo altura para el árbol")
 								+ "' WHERE id = '" + id_arbol + "'");
 						break;
 					case "5":// cambiar origen
-						st.executeUpdate("UPDATE arbol SET nombre_comun='"
+						st.executeUpdate("UPDATE arboles SET nombre_comun='"
 								+ JOptionPane.showInputDialog(null, "Introduzca nuevo nombre para el árbol")
 								+ "' WHERE id = '" + id_arbol + "'");
+						break;
+					case "0":
 						break;
 					default:
 						JOptionPane.showMessageDialog(null, "Opcion incorrecta");
@@ -91,7 +94,7 @@ public class Ejecutable {
 				String mensaje = "";
 				while (resultado.next()) {
 					mensaje += resultado.getInt(1) + " - " + resultado.getString(2) + " - " + resultado.getString(3)
-							+ " - " + resultado.getString(4) + " - " + resultado.getString(5);
+							+ " - " + resultado.getString(4) + " - " + resultado.getString(5)+"\n";
 				}
 				JOptionPane.showMessageDialog(null, mensaje);
 				break;
