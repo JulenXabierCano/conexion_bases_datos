@@ -21,8 +21,8 @@ public class Arbol {
 		}
 		@Override
 		public String toString() {
-			return "Arbol [id=" + id + ", nombre_comun=" + nombre_comun + ", nombre_cientifico=" + nombre_cientifico
-					+ ", habitat=" + habitat + ", altura=" + altura + ", origen=" + origen + "]";
+			return "Arbol\nid=" + id + "\nnombre_comun=" + nombre_comun + "\nnombre_cientifico=" + nombre_cientifico
+					+ "\nhabitat=" + habitat + "\naltura=" + altura + "\norigen=" + origen;
 		}
 		public int getId() {
 			return id;

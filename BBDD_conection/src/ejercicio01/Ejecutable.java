@@ -84,11 +84,19 @@ public class Ejecutable {
 				String sentenciaSelect = "SELECT * FROM arboles";
 				ResultSet resultado = st.executeQuery(sentenciaSelect);
 				String mensaje = "";
+				ArrayList<Arbol> arboles = new ArrayList<Arbol>();
 				while (resultado.next()) {
-					mensaje += resultado.getInt(1) + " - " + resultado.getString(2) + " - " + resultado.getString(3)
-							+ " - " + resultado.getString(4) + " - " + resultado.getString(5) + "\n";
+					Arbol arbol = new Arbol(
+							resultado.getInt(1),
+							resultado.getString(2),
+							resultado.getString(3),
+							resultado.getString(4),
+							resultado.getInt(5),
+							resultado.getString(6)
+							);
+					JOptionPane.showMessageDialog(null, arbol);
+					arboles.add(arbol);
 				}
-				JOptionPane.showMessageDialog(null, mensaje);
 				break;
 			case SALIR:
 				JOptionPane.showMessageDialog(null, "Adios");
