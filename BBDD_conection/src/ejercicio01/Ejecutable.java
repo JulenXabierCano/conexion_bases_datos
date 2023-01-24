@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
@@ -16,85 +17,67 @@ public class Ejecutable {
 		Statement st = con.createStatement();
 		PreparedStatement insertar = con.prepareStatement(
 				"insert into arboles (nombre_comun,nombre_cientifico,habitat,altura,origen) values (?,?,?,?,?)");
-		PreparedStatement eliminar = con.prepareStatement("DELETE FROM arboles WHERE nombre_cientifico = ?");
-		PreparedStatement modificar = con.prepareStatement("UPDATE arboles SET ?=? WHERE nombre_cientifico=?");
+		PreparedStatement eliminar = con.prepareStatement("DELETE FROM arboles WHERE id = ?");
+		PreparedStatement modificar = con.prepareStatement("UPDATE arboles SET ?=? WHERE ID=?");
 
-		final int INSERTAR_DATOS = 1;
-		final int ELIMINAR_DATOS = 2;
-		final int MODIFICAR_INFORMACION = 3;
+		final int CREAR_ARBOL = 1;
+		final int ELIMINAR_ARBOL = 2;
+		final int MODIFICAR_ARBOL = 3;
 		final int VISUALIZAR = 4;
 		final int SALIR = 0;
 		int opcion_menu;
 		do {
 			opcion_menu = Integer.parseInt(JOptionPane.showInputDialog(null,
-					"------MENU-------\n" + INSERTAR_DATOS + ". Insertar lineas\n" + ELIMINAR_DATOS
-							+ ". Eliminar lineas\n" + MODIFICAR_INFORMACION + ". Modificar lineas\n" + VISUALIZAR
-							+ ". Mostrar lineas\n" + SALIR + ". Salir\n" + "Elije una de las opciones"));
+					"------MENU-------\n" + CREAR_ARBOL + ". Insertar lineas\n" + ELIMINAR_ARBOL + ". Eliminar lineas\n"
+							+ MODIFICAR_ARBOL + ". Modificar lineas\n" + VISUALIZAR + ". Mostrar lineas\n" + SALIR
+							+ ". Salir\n" + "Elije una de las opciones"));
 			// fin menú
 			switch (opcion_menu) {
-			case INSERTAR_DATOS:
-				insertar.setString(1, JOptionPane.showInputDialog(null, "Introduzca nombre comun del arbol"));
-				insertar.setString(2, JOptionPane.showInputDialog(null, "Introduzca nombre científico del arbol"));
-				insertar.setString(3, JOptionPane.showInputDialog(null, "Introduzca habitat del arbol"));
-				insertar.setInt(4, Integer.parseInt(JOptionPane.showInputDialog(null, "Introduzca altura del arbol")));
-				insertar.setString(5, JOptionPane.showInputDialog(null, "Introduzca origen del arbol"));
+			case CREAR_ARBOL:
+				Arbol crear_arbol = new Arbol(
+						Integer.parseInt(JOptionPane.showInputDialog(null, "Inserta ID del arbol")),
+						JOptionPane.showInputDialog(null, "Introduzca nombre comun del arbol"),
+						JOptionPane.showInputDialog(null, "Introduzca nombre científico del arbol"),
+						JOptionPane.showInputDialog(null, "Introduzca habitat del arbol"),
+						Integer.parseInt(JOptionPane.showInputDialog(null, "Introduzca altura del arbol")),
+						JOptionPane.showInputDialog(null, "Introduzca origen del arbol"));
+				insertar.setString(1, crear_arbol.getNombre_comun());
+				insertar.setString(2, crear_arbol.getNombre_cientifico());
+				insertar.setString(3, crear_arbol.getHabitat());
+				insertar.setInt(4, crear_arbol.getId());
+				insertar.setString(5, crear_arbol.getOrigen());
 				insertar.execute();
+
 				break;
 
-			case ELIMINAR_DATOS:
-				eliminar.setString(1,
-						JOptionPane.showInputDialog(null, "Introduzca nombre científico del arbol a borrar"));
+			case ELIMINAR_ARBOL:
+				Arbol eliminar_arbol = new Arbol();
+				eliminar_arbol
+						.setId(Integer.parseInt(JOptionPane.showInputDialog(null, "Introduzca ID del arbol a borrar")));
+				eliminar.setInt(1, eliminar_arbol.getId());
 				eliminar.execute();
 				break;
 
-			case MODIFICAR_INFORMACION:
+			case MODIFICAR_ARBOL:
 				int opcion = 0;
 				opcion = Integer.parseInt(JOptionPane.showInputDialog(null,
-						"Introduzca dato a modificar\n" + "1 - Nombre comun\n" + "2 - Nombre cientifico\n"
-								+ "3 - Habitat\n" + "4 - Altura\n" + "5 - Origen\n" + "0 - salir\n"));
-
-				switch (opcion) {
-				case 1:
-					modificar.setString(3,
-							JOptionPane.showInputDialog(null, "Introduzca nombre cientifico del arbol a modificar"));
-					modificar.setString(2, JOptionPane.showInputDialog(null, "Introduzca nuevo nombre comun"));
-					modificar.setString(1, "nombre_comun");
-					modificar.executeUpdate();
-					break;
-
-				case 2:
-					modificar.setString(3,
-							JOptionPane.showInputDialog(null, "Introduzca nombre cientifico del arbol a modificar"));
-					modificar.setString(2, JOptionPane.showInputDialog(null, "Introduzca nuevo nombre cientifico"));
-					modificar.setString(1, "nombre_cientifico");
-					modificar.executeUpdate();
-					break;
-
-				case 3:
-					modificar.setString(3,
-							JOptionPane.showInputDialog(null, "Introduzca nombre cientifico del arbol a modificar"));
-					modificar.setString(2, JOptionPane.showInputDialog(null, "Introduzca nuevo nombre comun"));
-					modificar.setString(1, "habitat");
-					modificar.executeUpdate();
-					break;
-
-				case 4:
-					modificar.setString(3,
-							JOptionPane.showInputDialog(null, "Introduzca nombre cientifico del arbol a modificar"));
-					modificar.setString(2, JOptionPane.showInputDialog(null, "Introduzca nueva altura"));
-					modificar.setString(1, "altura");
-					modificar.executeUpdate();
-					break;
-
-				case 5:
-					modificar.setString(3,
-							JOptionPane.showInputDialog(null, "Introduzca nombre cientifico del arbol a modificar"));
-					modificar.setString(2, JOptionPane.showInputDialog(null, "Introduzca nuevo origen"));
-					modificar.setString(1, "origen");
-					modificar.executeUpdate();
-					break;
-				}
-
+						"Introduzca ID del arbol que va a modificar"));
+				Arbol modificar_arbol = new Arbol(0,
+						JOptionPane.showInputDialog(null, "Introduzca nuevo nombre comun del arbol"),
+						JOptionPane.showInputDialog(null, "Introduzca nuevo nombre científico del arbol"),
+						JOptionPane.showInputDialog(null, "Introduzca nuevo habitat del arbol"),
+						Integer.parseInt(JOptionPane.showInputDialog(null, "Introduzca nueva altura del arbol")),
+						JOptionPane.showInputDialog(null, "Introduzca nuevo origen del arbol"));
+				
+//				UPDATE arboles SET nombre_comun=?,nombre_cientifico=?,habitat=?,altura=?,origen=? WHERE ID=?
+				
+				modificar.setString(1, modificar_arbol.getNombre_comun());
+				modificar.setString(2, modificar_arbol.getNombre_cientifico());
+				modificar.setString(3, modificar_arbol.getHabitat());
+				modificar.setInt(4, modificar_arbol.getAltura());
+				modificar.setString(5, modificar_arbol.getOrigen());
+				modificar.setInt(6, opcion);
+				modificar.execute();
 				break;
 			case VISUALIZAR:
 
